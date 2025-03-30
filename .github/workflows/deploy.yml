@@ -29,7 +29,13 @@ jobs:
         sudo apt-get update && sudo apt-get install -y terraform
 
     - name: Initialize Terraform
-      run: terraform init
+      run: terraform init -upgrade
 
-    - name: Apply Terraform changes
+    - name: Validate Terraform
+      run: terraform validate
+
+    - name: Plan Terraform Changes
+      run: terraform plan -var="aws_region=${{ secrets.AWS_REGION }}"
+
+    - name: Apply Terraform Changes
       run: terraform apply -auto-approve -var="aws_region=${{ secrets.AWS_REGION }}"
