@@ -8,10 +8,11 @@ output "public_subnets" {
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "~> 2.0"
+  version = "5.19.0"
   
   name = "wordpress-vpc"
   cidr = "10.0.0.0/16"
+  
   azs = ["us-east-1a", "us-east-1b"]   # Update based on your region
   public_subnets = ["10.0.1.0/24", "10.0.2.0/24"]
   private_subnets = ["10.0.3.0/24", "10.0.4.0/24"]
@@ -26,5 +27,7 @@ resource "aws_instance" "wordpress" {
 
   tags = {
     Name = "WordPress-Instance"
+    Terraform = "true"
+    Environment = "dev"
   }
 }
