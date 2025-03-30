@@ -18,7 +18,7 @@ module "vpc" {
   private_subnets = ["10.0.3.0/24", "10.0.4.0/24"] # Optional
 
   enable_nat_gateway = true
-  enable_vpn_gateway = false
+  enable_vpn_gateway = true
 }
 
 resource "aws_instance" "wordpress" {
