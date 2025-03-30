@@ -2,16 +2,29 @@ provider "aws" {
   region = var.aws_region
 }
 
+output "public_subnets" {
+  value = module.vpc.public_subnets
+}
+
 module "vpc" {
-  source = "terraform-aws-modules/vpc/aws"
-  name   = "wordpress-vpc"
-  cidr   = "10.0.0.0/16"
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "5.0.0"
+
+  name = "wordpress-vpc"
+  cidr = "10.0.0.0/16"
+
+  azs             = ["us-east-1a", "us-east-1b"]   # Change based on your AWS region
+  public_subnets  = ["10.0.1.0/24", "10.0.2.0/24"] # ADD THIS IF MISSING
+  private_subnets = ["10.0.3.0/24", "10.0.4.0/24"] # Optional
+
+  enable_nat_gateway = true
+  enable_vpn_gateway = false
 }
 
 resource "aws_instance" "wordpress" {
-  ami           = "ami-0c55b159cbfafe1f0" # Amazon Linux 2 (Change for your region)
+  ami           = "ami-072e42fd77921edac" # Amazon Linux 2 (Change for your region)
   instance_type = "t2.micro"
-  subnet_id     = module.vpc.public_subnets[0]
+  subnet_id     = element(module.vpc.public_subnets, 0)
 
   tags = {
     Name = "WordPress-Instance"
