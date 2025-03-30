@@ -31,5 +31,10 @@ jobs:
     - name: Initialize Terraform
       run: terraform init
 
+    - name: Debug Terraform Version and Modules
+      run: terraform version && terraform providers
+
     - name: Apply Terraform changes
-      run: terraform apply -auto-approve -var="aws_region=${{ secrets.AWS_REGION }}"
+      run: terraform apply 
+      
+    
