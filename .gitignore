@@ -10,5 +10,6 @@ terraform.tfstate.backup
 *.zip
 
 # Ignore Show files
-.show/
+show/registry.terraform.io/hashicorp/aws/terraform-provider-aws_*.zip
+
 
