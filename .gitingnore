@@ -9,3 +9,6 @@ terraform.tfstate.backup
 # Ignore provider plugin binaries (large files)
 *.zip
 
+# Ignore Show files
+.show/
+
