@@ -8,7 +8,7 @@ output "public_subnets" {
 
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
-  version = "~> 3.0"  # Ensure you're using a compatible version
+  version = "~> 5.0" 
 
   
   azs               = ["us-east-1a","us-east-1b"]  # List availability zones for your region
